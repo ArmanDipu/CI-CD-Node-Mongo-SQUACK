@@ -11,14 +11,7 @@ const router = require("./routes")
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
 
-database_url = process.env.DATABASE_URL
-mongoose.connect(database_url).then(()=>{
-    console.log("Database Connected.")
-}).catch((err)=>{
-    console.log(err)
-})
-
-const port = 3000
+const portDev = 3000
 const app = express()
 
 app.use(logger('dev'));
@@ -50,6 +43,6 @@ app.use(function(err, req, res, next){
 });
 
 
-app.listen(port,()=>{
-    console.log(`Squack is running at http://localhost:${port}`)
+app.listen(portDev,()=>{
+    console.log(`Squack is running at http://localhost:${portDev}`)
 })
