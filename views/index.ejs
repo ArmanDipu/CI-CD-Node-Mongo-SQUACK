@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Squack</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+    <nav class="navbar navbar-light" style="background-color: lightblue;">
+        <div class="container-fluid">
+            <a class="navbar-brand">Squack</a>
+            <button class="btn btn-danger" type="submit">
+                <%= currentUser? currentUser : "Not Selected" %>
+            </button>
+        </div>
+    </nav><br>
+
+    <div class="container">
+        <form class="row justify-content-md-center" method="POST" action="/send">
+            <div class="col col-lg-2">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-auto">
+                            <label for="sender" class="col-form-label">Select Sender</label>
+                        </div>
+                        <select class="form-select form-select-m" aria-label=".form-select-sm example" id="sender"
+                            name="from">
+                            <option value="<%= currentUser%>">
+                                <%= currentUser%>
+                            </option>
+                            <% for (let i=0; i<users.length; i++){ if(currentUser!=users[i].name){%>
+                                <option value="<%= users[i].name%>">
+                                    <%= users[i].name%>
+                                </option>
+                                <%}}%>
+                        </select><br>
+                        <div class="col-auto">
+                            <label for="reciever" class="col-form-label">Select Reciever</label>
+                        </div>
+                        <select class="form-select form-select-m" aria-label=".form-select-sm example" id="receiver"
+                            name="to">
+                            <% for (let i=0; i<users.length; i++){ %>
+                                <option value="<%= users[i].name%>">
+                                    <%= users[i].name%>
+                                </option>
+                                <%}%>
+                                    <option value="all">@everyone</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body" style="padding: 10px;">
+                        <a href="" class="btn btn-success">Messege</a>
+                        <a href="/refresh" class="btn btn-outline-danger">Refresh</a>
+                        <div style="padding : 5%">
+                            <ul class="list-group">
+                                <% for (let i=0; i<msgs.length; i++){ %>
+                                    <li class="list-group-item">
+                                        <%= msgs[i].from==currentUser ? "Me" : msgs[i].from %>
+                                            : <%= msgs[i].to == "all" ? "@everyone "+msgs[i].msg :  msgs[i].msg %>
+                                    </li>
+                                    <%}%>
+                                        <li class="list-group-item">
+                                            <label for="inputPassword6" class="col-form-label">Write Messege</label>
+                                            <input type="Messege" id="inputPassword6" class="form-control"
+                                                aria-describedby="passwordHelpInline" name="msg"><br>
+                                            <button type="submit" class="btn btn-primary">send</button>
+                                        </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </div>
+
+</body>
+
+</html>
